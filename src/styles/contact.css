@@ -1,0 +1,120 @@
+/* Contact section and form */
+.contact__grid {
+  display: grid;
+  gap: 48px;
+  align-items: start;
+}
+.contact-list {
+  display: grid;
+  gap: 1rem;
+  margin: 1.5rem 0 1.75rem;
+}
+.contact-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  overflow-wrap: anywhere;
+}
+.contact-list a:hover {
+  color: var(--gold);
+  text-decoration: underline;
+}
+
+.contact__form-wrap {
+  padding: 1.5rem;
+  border: 1px solid var(--black-line);
+  border-radius: var(--radius);
+  background: var(--black-soft);
+}
+.form {
+  display: grid;
+  gap: 1.1rem;
+}
+.field {
+  display: grid;
+  gap: 0.4rem;
+}
+.field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--white);
+}
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 0.8rem 0.9rem;
+  font: inherit;
+  color: var(--white);
+  background: var(--black);
+  border: 1px solid var(--black-line);
+  border-radius: var(--radius);
+  transition: border-color 0.2s;
+}
+.field input:hover,
+.field textarea:hover {
+  border-color: #4a4a4a;
+}
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px rgba(201, 162, 75, 0.35);
+}
+.field textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+.field input[aria-invalid='true'],
+.field textarea[aria-invalid='true'] {
+  border-color: #e07a6b;
+}
+.field__error {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #f0a093;
+}
+.form .btn {
+  justify-self: start;
+}
+.form__status {
+  min-height: 1px;
+}
+.form__msg {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  border: 1px solid;
+}
+.form__msg a {
+  color: var(--gold);
+  text-decoration: underline;
+  overflow-wrap: anywhere;
+}
+.form__msg--notice {
+  color: var(--white);
+  border-color: var(--gold);
+  background: var(--black);
+}
+.form__msg--success {
+  color: #bfe3c6;
+  border-color: #4f8a5b;
+  background: var(--black);
+}
+.form__msg--error {
+  color: #f0a093;
+  border-color: #b4574a;
+  background: var(--black);
+}
+
+@media (min-width: 900px) {
+  .contact__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+  }
+  .contact__form-wrap {
+    padding: 2rem;
+  }
+}
