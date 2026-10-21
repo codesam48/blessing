@@ -50,7 +50,7 @@
 .project-card {
   display: flex;
   flex-direction: column;
-  background: var(--white);
+  /* background: var(--white); */
   border: 1px solid var(--cream-line);
   border-radius: 20px;
   overflow: hidden;

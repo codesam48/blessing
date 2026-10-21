@@ -250,8 +250,8 @@
   text-align: center;
   gap: 0.75rem;
   padding: 1rem 0.4rem;
-  background: var(--cream);
-  border: 1px solid var(--cream-line);
+  /* background: var(--cream); */
+  /* border: 1px solid var(--cream-line); */
   border-radius: var(--radius);
   transition: border-color 0.2s, box-shadow 0.2s;
 }

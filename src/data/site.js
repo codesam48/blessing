@@ -2,7 +2,7 @@
 
 export const profile = {
   name: 'Blessing Chukwudi Ajah',
-  monogram: 'BA',
+  monogram: 'BlessAjah',
   title: 'Digital Marketer / Social Media Manager',
   location: 'Port Harcourt, Rivers State, Nigeria',
   email: 'blessingsajahme@gmail.com',

@@ -50,7 +50,7 @@ export default function Navbar() {
     <header className="navbar">
       <div className="container navbar__inner">
         <a href="#home" className="monogram" aria-label={`${profile.name} – home`} onClick={(e) => handle(e, 'home')}>
-          {profile.monogram}
+          <span>{profile.monogram}</span>
         </a>
 
         <nav className="navbar__links" aria-label="Primary">

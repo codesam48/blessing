@@ -17,22 +17,32 @@
 }
 
 .monogram {
-  display: inline-grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 42px;
+  padding: 0 0.7rem;
   border: 1.5px solid var(--gold);
   border-radius: var(--radius);
   color: var(--gold);
   font-family: var(--font-serif);
   font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: 0.02em;
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+}
+.monogram span {
+  display: inline-block;
+  transform: translateY(-1px);
 }
 .monogram--static {
-  width: 38px;
+  min-width: 38px;
   height: 38px;
-  font-size: 0.95rem;
+  font-size: 0.68rem;
+  padding: 0 0.6rem;
 }
 
 .navbar__links {
@@ -65,14 +75,42 @@
 .navbar__quick a {
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: 38px;
+  height: 38px;
   color: var(--white);
   border-radius: var(--radius);
   transition: color 0.2s;
 }
+.navbar__quick a svg {
+  width: 16px;
+  height: 16px;
+}
 .navbar__quick a:hover {
   color: var(--gold);
+}
+
+@media (max-width: 959px) {
+  .navbar__inner {
+    gap: 0.5rem;
+  }
+
+  .monogram {
+    min-width: 38px;
+    height: 32px;
+    padding: 0 0.55rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+  }
+
+  .navbar__toggle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .navbar__toggle svg {
+    width: 18px;
+    height: 18px;
+  }
 }
 
 .navbar__toggle {

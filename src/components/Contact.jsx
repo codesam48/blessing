@@ -27,21 +27,35 @@ export default function Contact() {
     if (errors[name]) setErrors((er) => ({ ...er, [name]: undefined }));
   };
 
-  const gmailHref = () => {
+  const mailtoHref = () => {
     const name = values.name.trim() || 'a visitor';
     const senderEmail = values.email.trim();
     const subject = `Portfolio enquiry from ${name}`;
     const body = `${values.message.trim()}\n\nFrom: ${name} (${senderEmail})`;
     const ccParam = senderEmail ? `&cc=${encodeURIComponent(senderEmail)}` : '';
 
-    const gmailAppHref = `googlegmail://co?to=${encodeURIComponent(profile.email)}${ccParam}&subject=${encodeURIComponent(
+    return `mailto:${profile.email}?${ccParam ? `cc=${encodeURIComponent(senderEmail)}&` : ''}subject=${encodeURIComponent(
       subject,
     )}&body=${encodeURIComponent(body)}`;
-    const gmailWebHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
-      profile.email,
-    )}${ccParam}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
 
-    return { gmailAppHref, gmailWebHref };
+  const gmailAppHref = () => {
+    const name = values.name.trim() || 'a visitor';
+    const senderEmail = values.email.trim();
+    const subject = `Portfolio enquiry from ${name}`;
+    const body = `${values.message.trim()}\n\nFrom: ${name} (${senderEmail})`;
+    const ccParam = senderEmail ? `&cc=${encodeURIComponent(senderEmail)}` : '';
+
+    return `googlegmail://co?to=${encodeURIComponent(profile.email)}${ccParam}&subject=${encodeURIComponent(
+      subject,
+    )}&body=${encodeURIComponent(body)}`;
+  };
+
+  const handleEmailClick = (e) => {
+    if (typeof navigator !== 'undefined' && /Android/i.test(navigator.userAgent)) {
+      e.preventDefault();
+      window.location.href = gmailAppHref();
+    }
   };
 
   const onSubmit = async (e) => {
@@ -93,7 +107,7 @@ export default function Contact() {
               <span className="icon-circle icon-circle--sm">
                 <Icon name="mail" size={18} />
               </span>
-              <a href={gmailHref().gmailWebHref}>{profile.email}</a>
+              <a href={mailtoHref()} onClick={handleEmailClick}>{profile.email}</a>
             </li>
             <li>
               <span className="icon-circle icon-circle--sm">
@@ -177,13 +191,6 @@ export default function Contact() {
             </button>
 
             <div className="form__status" role="status" aria-live="polite">
-              {status.type === 'notice' && (
-                <p className="form__msg form__msg--notice">
-                  This form isn’t connected to a message service yet, so nothing has been sent.{' '}
-                  <a href={gmailHref().gmailWebHref}>Open a ready-written email</a> or contact me directly at{' '}
-                  <a href={gmailHref().gmailWebHref}>{profile.email}</a> or <a href={profile.phoneHref}>{profile.phone}</a>.
-                </p>
-              )}
               {status.type === 'success' && <p className="form__msg form__msg--success">{status.text}</p>}
               {status.type === 'error' && <p className="form__msg form__msg--error">{status.text}</p>}
             </div>
