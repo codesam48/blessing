@@ -39,33 +39,9 @@ export default function Contact() {
     )}&body=${encodeURIComponent(body)}`;
   };
 
-  const gmailAppHref = () => {
-    const name = values.name.trim() || 'a visitor';
-    const senderEmail = values.email.trim();
-    const subject = `Portfolio enquiry from ${name}`;
-    const body = `${values.message.trim()}\n\nFrom: ${name} (${senderEmail})`;
-    const ccParam = senderEmail ? `&cc=${encodeURIComponent(senderEmail)}` : '';
-
-    return `googlegmail://co?to=${encodeURIComponent(profile.email)}${ccParam}&subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`;
-  };
-
-  const handleEmailClick = (e) => {
-    if (typeof navigator !== 'undefined' && /Android/i.test(navigator.userAgent)) {
-      e.preventDefault();
-      window.location.href = gmailAppHref();
-      return;
-    }
-
-    if (e) e.preventDefault();
-    window.location.href = mailtoHref();
-  };
-
   const openEmailDraft = () => {
     if (typeof window === 'undefined') return;
-    const href = /Android/i.test(navigator.userAgent) ? gmailAppHref() : mailtoHref();
-    window.location.href = href;
+    window.location.href = mailtoHref();
   };
 
   const onSubmit = async (e) => {
@@ -118,7 +94,7 @@ export default function Contact() {
               <span className="icon-circle icon-circle--sm">
                 <Icon name="mail" size={18} />
               </span>
-              <a href={mailtoHref()} onClick={handleEmailClick}>{profile.email}</a>
+              <a href={mailtoHref()}>{profile.email}</a>
             </li>
             <li>
               <span className="icon-circle icon-circle--sm">
@@ -201,9 +177,9 @@ export default function Contact() {
               <button type="submit" className="btn btn--gold" disabled={status.type === 'sending'}>
                 {status.type === 'sending' ? 'Sending…' : 'Send Message'}
               </button>
-              <button type="button" className="btn btn--outline" onClick={handleEmailClick}>
+              <a href={mailtoHref()} className="btn btn--outline">
                 Email me instead
-              </button>
+              </a>
             </div>
 
             <div className="form__status" role="status" aria-live="polite">
