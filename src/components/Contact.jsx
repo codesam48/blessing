@@ -55,7 +55,17 @@ export default function Contact() {
     if (typeof navigator !== 'undefined' && /Android/i.test(navigator.userAgent)) {
       e.preventDefault();
       window.location.href = gmailAppHref();
+      return;
     }
+
+    if (e) e.preventDefault();
+    window.location.href = mailtoHref();
+  };
+
+  const openEmailDraft = () => {
+    if (typeof window === 'undefined') return;
+    const href = /Android/i.test(navigator.userAgent) ? gmailAppHref() : mailtoHref();
+    window.location.href = href;
   };
 
   const onSubmit = async (e) => {
@@ -67,9 +77,10 @@ export default function Contact() {
       return;
     }
 
-    // No form service configured: be honest and offer a working alternative.
+    // No form service configured: open the user’s email app with a prefilled draft.
     if (!formEndpoint) {
-      setStatus({ type: 'notice' });
+      setStatus({ type: 'success', text: 'Opening your email app with a prefilled message…' });
+      openEmailDraft();
       return;
     }
 
@@ -186,9 +197,14 @@ export default function Contact() {
               )}
             </div>
 
-            <button type="submit" className="btn btn--gold" disabled={status.type === 'sending'}>
-              {status.type === 'sending' ? 'Sending…' : 'Send Message'}
-            </button>
+            <div className="form__actions" style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+              <button type="submit" className="btn btn--gold" disabled={status.type === 'sending'}>
+                {status.type === 'sending' ? 'Sending…' : 'Send Message'}
+              </button>
+              <button type="button" className="btn btn--outline" onClick={handleEmailClick}>
+                Email me instead
+              </button>
+            </div>
 
             <div className="form__status" role="status" aria-live="polite">
               {status.type === 'success' && <p className="form__msg form__msg--success">{status.text}</p>}
