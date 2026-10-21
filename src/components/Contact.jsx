@@ -27,10 +27,21 @@ export default function Contact() {
     if (errors[name]) setErrors((er) => ({ ...er, [name]: undefined }));
   };
 
-  const mailtoHref = () => {
-    const subject = encodeURIComponent(`Portfolio enquiry from ${values.name.trim() || 'a visitor'}`);
-    const body = encodeURIComponent(`${values.message.trim()}\n\nFrom: ${values.name.trim()} (${values.email.trim()})`);
-    return `mailto:${profile.email}?subject=${subject}&body=${body}`;
+  const gmailHref = () => {
+    const name = values.name.trim() || 'a visitor';
+    const senderEmail = values.email.trim();
+    const subject = `Portfolio enquiry from ${name}`;
+    const body = `${values.message.trim()}\n\nFrom: ${name} (${senderEmail})`;
+    const ccParam = senderEmail ? `&cc=${encodeURIComponent(senderEmail)}` : '';
+
+    const gmailAppHref = `googlegmail://co?to=${encodeURIComponent(profile.email)}${ccParam}&subject=${encodeURIComponent(
+      subject,
+    )}&body=${encodeURIComponent(body)}`;
+    const gmailWebHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+      profile.email,
+    )}${ccParam}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    return { gmailAppHref, gmailWebHref };
   };
 
   const onSubmit = async (e) => {
@@ -82,7 +93,7 @@ export default function Contact() {
               <span className="icon-circle icon-circle--sm">
                 <Icon name="mail" size={18} />
               </span>
-              <a href={`mailto:${profile.email}`}>{profile.email}</a>
+              <a href={gmailHref().gmailWebHref}>{profile.email}</a>
             </li>
             <li>
               <span className="icon-circle icon-circle--sm">
@@ -169,8 +180,8 @@ export default function Contact() {
               {status.type === 'notice' && (
                 <p className="form__msg form__msg--notice">
                   This form isn’t connected to a message service yet, so nothing has been sent.{' '}
-                  <a href={mailtoHref()}>Open a ready-written email</a> or contact me directly at{' '}
-                  <a href={`mailto:${profile.email}`}>{profile.email}</a> or <a href={profile.phoneHref}>{profile.phone}</a>.
+                  <a href={gmailHref().gmailWebHref}>Open a ready-written email</a> or contact me directly at{' '}
+                  <a href={gmailHref().gmailWebHref}>{profile.email}</a> or <a href={profile.phoneHref}>{profile.phone}</a>.
                 </p>
               )}
               {status.type === 'success' && <p className="form__msg form__msg--success">{status.text}</p>}
